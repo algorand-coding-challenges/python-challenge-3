@@ -1,0 +1,7 @@
+#pragma version 10
+
+smart_contracts.asa_vault.contract.AsaVault.clear_state_program:
+    // smart_contracts/asa_vault/contract.py:3
+    // class AsaVault(ARC4Contract):
+    int 1
+    return

@@ -100,9 +100,9 @@ Now you are ready to fix the bug!
 ## Checkpoint 3: 🐞 Fix the bug 🧐
 
 1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet).
-3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the personal vault smart contract.
+3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the ASA vault smart contract.
 4. Compile the contract with `algokit project run build` and then try running the test script with `algokit project deploy localnet`. It will fail.
-5. Read the error, figure out what is wrong and fix the bug!
+5. Read the error, figure out what is wrong and fix the bug! The bug is inside of the ASA Vault contract. There is nothing wrong with the deploy script inside of `smart_contracts/asa_vault/deploy_config.py`
 6. After fixing the bug, build and run the deploy script again with the below command:
 ```bash
 algokit project run build
@@ -118,7 +118,7 @@ If you see something like this in the console, you successfully fixed the bug! �
 - [Inner Transaction Documentation](https://developer.algorand.org/docs/get-details/dapps/smart-contracts/apps/innertx/?from_query=inner%20t#template-modal-overlay)
 - [Algorand Python Documentation](https://algorandfoundation.github.io/puya/api-algopy.itxn.html#algopy.itxn.AssetTransfer)
 - [How to opt-in to an asset with assetTransfer txn](https://developer.algorand.org/docs/get-details/transactions/transactions/?from_query=zero%20asset%20transfer#asset-transfer-transaction:~:text=A%20zero%20amount%20transferred%20to%20self%20allocates%20that%20asset%20in%20the%20account%27s%20Asset%20map.)
-  
+
 
 ## Checkpoint 4: 💯 Submit your answer
 

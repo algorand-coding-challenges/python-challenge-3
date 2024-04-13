@@ -100,9 +100,9 @@ Now you are ready to fix the bug!
 ## Checkpoint 3: 🐞 Fix the bug 🧐
 
 1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet).
-3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the personal vault smart contract.
+3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the ASA vault smart contract.
 4. Compile the contract with `algokit project run build` and then try running the test script with `algokit project deploy localnet`. It will fail.
-5. Read the error, figure out what is wrong and fix the bug!
+5. Read the error, figure out what is wrong and fix the bug! The bug is inside of the ASA Vault contract. There is nothing wrong with the deploy script inside of `smart_contracts/asa_vault/deploy_config.py`
 6. After fixing the bug, build and run the deploy script again with the below command:
 ```bash
 algokit project run build

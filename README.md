@@ -52,7 +52,7 @@ Now you have 2 ways of opening your AlgoKit project.
 ```bash
 algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on.
 ```
-This command will install all dependecies and also generate a `.env` file for you.
+This command will install all dependencies and also generate a `.env` file for you.
 5. Activate Python virtual environment by running:
 ```bash
 poetry shell
@@ -84,8 +84,8 @@ So to access a single project under the `projects` folder, it is recommended to 
 ```bash
 algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on.
 ```
-This command will install all dependecies and also generate a `.env` file for you.
-3. Activate Python virtual environment by running below inside of `challenge` folder:
+This command will install all dependencies and also generate a `.env` file for you.
+3. Activate the Python virtual environment by running below inside of `challenge` folder:
 ```bash
 poetry shell
 ```
@@ -100,10 +100,10 @@ Now you are ready to fix the bug!
 ## Checkpoint 3: 🐞 Fix the bug 🧐
 
 1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet).
-3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the ASA vault smart contract.
+3. Go to `smart_contracts/asa_vault/contract.py` and see the source code of the ASA vault smart contract.
 4. Compile the contract with `algokit project run build` and then try running the test script with `algokit project deploy localnet`. It will fail.
-5. Go to `smart_contracts/asa_vault/deploy_config.py` to understand the deployment / test script.
-6. Read the error, figure out what is wrong and fix the bug! The bug is inside of the ASA Vault contract. There is nothing wrong with the deploy script inside of `smart_contracts/asa_vault/deploy_config.py`
+5. Go to `smart_contracts/asa_vault/deploy_config.py` to understand the deployment/test script.
+6. Read the error, figure out what is wrong, and fix the bug! The bug is inside of the ASA Vault contract. There is nothing wrong with the deploy script inside of `smart_contracts/asa_vault/deploy_config.py`
 7. After fixing the bug, build and run the deploy script again with the below command:
 ```bash
 algokit project run build
@@ -112,6 +112,7 @@ algokit project deploy localnet
 OR if you are on VSCode, hit F5 or go to the `Run and Debug` tab and run the debug script.
 
 If you see something like this in the console, you successfully fixed the bug! 😆
+<img width="1217" alt="image" src="https://github.com/algorand-coding-challenges/python-challenge-3/assets/52557585/79b4a6a8-ce59-4e64-85bf-35bc82583869">
 
 
 **😰 Are you struggling?**
@@ -135,7 +136,7 @@ The Algorand Developer Relations team will review the submission and "approve" t
 
 > The certificate of completion NFT is a verifiable credential minted on the [GoPlausible platform](https://goplausible.com/) that follows the W3C standard for certificates and OpenBadges standard for badges.
 
-The certificate of completion NFT for Python challenges were designed by [Maars](https://twitter.com/MaarsComics), an artist & a dev in web3. Definitely follow his work! It's awesome. 😆
+The certificate of completion NFT for Python challenges was designed by [Maars](https://twitter.com/MaarsComics), an artist & a dev in web3. Definitely follow his work! It's awesome. 😆
 
 🎉 Congratulations on completing the challenge Algodev!
 

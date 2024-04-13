@@ -1,6 +1,6 @@
 # 🎮 Algorand Coding Challenge - Volume 2: 🐍 Python Challenges
 
-## 🚩 Challenge 3: Algorand smart contract can send a transaction!? 🤯
+## 🚩 Challenge 3: Algorand smart contract can send transactions!? 🤯
 > I want to deposit my Super RARE Oranges NFT into my ASA Vault contract but the contract is failing to opt-in to the asset! What is going on?
 
 Inside of `smart_contracts/asa_vault/contract.py` file, there is a simple ASA vault smart contract written in Algorand Python.

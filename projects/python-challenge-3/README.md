@@ -1,11 +1,11 @@
 # 🎮 Algorand Coding Challenge - Volume 2: 🐍 Python Challenges
 
-## 🚩 Challenge 3: Algorand smart contract can send a transaction!? 🤯
+## 🚩 Challenge 3: Algorand smart contract can send transactions!? 🤯
 > I want to deposit my Super RARE Oranges NFT into my ASA Vault contract but the contract is failing to opt-in to the asset! What is going on?
 
-Inside of `smart_contracts/asa_vault/contract.py` file, there is a simple ASA vault smart contract written in Algorand Python. 
+Inside of `smart_contracts/asa_vault/contract.py` file, there is a simple ASA vault smart contract written in Algorand Python.
 
-It is a simple contract that has a `deposit_asa` function and a `withdraw_asa` function and the depositor's balance is recorded in the global state `asa_balance`. There is also an `opt_in_to_asset` method that opts the smart contract account into the asset that is being deposited. 
+It is a simple contract that has a `deposit_asa` function and a `withdraw_asa` function and the depositor's balance is recorded in the global state `asa_balance`. There is also an `opt_in_to_asset` method that opts the smart contract account into the asset that is being deposited.
 
 The smart contract builds successfully but if you try deploying and testing the smart contract by opening Docker Desktop, and then running:
 ```bash
@@ -19,18 +19,18 @@ it will fail and show this error:
 ```bash
 algosdk.error.AlgodHTTPError: TransactionPool.Remember: transaction ESKVFLSCWNUNJJWMF34QBEQHTXGWFQNDTBYS3MBXZQNEIQOYLKXQ: receiver error: must optin, asset 1442 missing from NIADJIGAJ2KYNX5HJ35I7RK66VVN6SE6NBUB46NJXAC4USYXJEYSXDH4JQ
 ```
- 
+
 **Find out what is wrong and fix the bug.**
 
 > 💬 Meet other hackers working on this challenge and get help in the [Algorand Python Discord Channel](https://discord.com/channels/491256308461207573/1182612934455722075)!
 
-## Checkpoint 1: 🧰 Prerequisites 
+## Checkpoint 1: 🧰 Prerequisites
 
 1. [Install Python 3.12 or higher](https://www.python.org/downloads/)
 2. [Install AlgoKit](https://github.com/algorandfoundation/algokit-cli/tree/main?tab=readme-ov-file#install).
 3. Install [Docker](https://www.docker.com/products/docker-desktop/). It is used to run a local Algorand network for development.
 
-## Checkpoint 2: 💻 Set up your development environment 
+## Checkpoint 2: 💻 Set up your development environment
 
 1. [Fork this repository.](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
 2. Clone the repository
@@ -39,29 +39,29 @@ cd [DIRECTORY_OF_YOUR_CHOICE]
 git clone [FORKED_REPO_URL]
 ```
 
-Now you have 2 ways of opening your AlgoKit project. 
+Now you have 2 ways of opening your AlgoKit project.
 
 ### With VSCode Workspaces
 
 1. Open the cloned repository with the code editor of your choosing.
-2. Open workspace mode by clicking `open workspace` inside of `python-challenge-1.code-workspace` file at the root level.  
-3. Go inside of the `challenge` folder. 
+2. Open workspace mode by clicking `open workspace` inside of `python-challenge-1.code-workspace` file at the root level.
+3. Go inside of the `challenge` folder.
 4. To setup your dev environment using AlgoKit, run the below command:
 ```bash
-algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on. 
+algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on.
 ```
 This command will install all dependecies and also generate a `.env` file for you.
 5. Activate Python virtual environment by running:
 ```bash
 poetry shell
 ```
-venv will automatically be activated the next time you open the project. 
+venv will automatically be activated the next time you open the project.
 
 > Please note, in addition to built-in support for [VSCode Workspaces](https://code.visualstudio.com/docs/editor/workspaces), the cli provides native support for monorepos called `algokit workspaces`. Refer to [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md#workspace-vs-standalone-projects) for detailed guidelines for recommended project structures and ability to leverage custom command orchestration via `algokit project run`.
 
 ### Without VSCode Workspaces
 
-All AlgoKit projects initialized with `--workspace` option has the following directory structure: 
+All AlgoKit projects initialized with `--workspace` option has the following directory structure:
 
 ```bash
 ├── projects
@@ -80,14 +80,14 @@ So to access a single project under the `projects` folder, it is recommended to 
 1. cd into `projects/challenge` then open the code editor
 2. To setup your dev environment using AlgoKit, run the below command:
 ```bash
-algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on. 
+algokit project bootstrap all #algokit bootstrap all is being deprecated. Use this command from now on.
 ```
 This command will install all dependecies and also generate a `.env` file for you.
 3. Activate Python virtual environment by running below inside of `challenge` folder:
 ```bash
 poetry shell
 ```
-venv will automatically be activated the next time you open the project. 
+venv will automatically be activated the next time you open the project.
 
 Video walkthrough of forking and cloning this repository:
 
@@ -97,16 +97,16 @@ Now you are ready to fix the bug!
 
 ## Checkpoint 3: 🐞 Fix the bug 🧐
 
-1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet). 
+1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet).
 3. Go to `smart_contracts/personal_vault/contract.py` and to see the source code of the personal vault smart contract.
 4. Try building the contract with `algokit project run build`. It will fail.
 5. Read the error, figure out what is wrong and fix the bug!
-6. After fixing the bug, build and run the deploy script with the below command: 
+6. After fixing the bug, build and run the deploy script with the below command:
 ```bash
 algokit project run build
 algokit project deploy localnet
 ```
-OR if you are on VSCode, hit F5 or go to the `Run and Debug` tab and run the debug script. 
+OR if you are on VSCode, hit F5 or go to the `Run and Debug` tab and run the debug script.
 
 If you see something like this in the console, you successfully fixed the bug! 😆
 
@@ -117,9 +117,9 @@ If you see something like this in the console, you successfully fixed the bug! �
 - [Algorand Python Documentation](https://algorandfoundation.github.io/puya/api-algopy.html#algopy.Global:~:text=current_application_address%3A%20Final%5B,executing.%20Application%20mode%20only.)
 - [AlgoKit CLI Documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md)
 
-## Checkpoint 4: 💯 Submit your answer 
+## Checkpoint 4: 💯 Submit your answer
 
-1. After fixing the bug, push your code to your forked Github repo and [make a PR to the original repo.](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) 
+1. After fixing the bug, push your code to your forked Github repo and [make a PR to the original repo.](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
 2. Inside the PR include:
    1. What was the problem?
    2. How did you solve the problem?
@@ -129,7 +129,7 @@ If you see something like this in the console, you successfully fixed the bug! �
 
 The Algorand Developer Relations team will review the submission and "approve" the PR by labeling it `Approved`. Once it's approved, we will share the magic link to claim your certificate of completion NFT in the comment of the PR!
 
-> The certificate of completion NFT is a verifiable credential minted on the [GoPlausible platform](https://goplausible.com/) that follows the W3C standard for certificates and OpenBadges standard for badges. 
+> The certificate of completion NFT is a verifiable credential minted on the [GoPlausible platform](https://goplausible.com/) that follows the W3C standard for certificates and OpenBadges standard for badges.
 
 The certificate of completion NFT for Python challenges were designed by [Maars](https://twitter.com/MaarsComics), an artist & a dev in web3. Definitely follow his work! It's awesome. 😆
 

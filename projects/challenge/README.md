@@ -7,12 +7,14 @@ Inside of `smart_contracts/asa_vault/contract.py` file, there is a simple ASA va
 
 It is a simple contract that has a `deposit_asa` function and a `withdraw_asa` function and the depositor's balance is recorded in the global state `asa_balance`. There is also an `opt_in_to_asset` method that opts the smart contract account into the asset that is being deposited.
 
+If you don't know what `opt-in` is it is a unique feature on Algorand that prevents someone from sending a token to an account that hasn't opted in to the token that is being sent. You can learn more about opt-ins [here](https://developer.algorand.org/docs/get-details/algokit/utils/ts/capabilities/asset/?from_query=opt%20in#opt-inout)
+
 The smart contract builds successfully but if you try deploying and testing the smart contract by opening Docker Desktop, and then running:
 ```bash
-algokit bootstrap all
-algokit localnet start
+algokit bootstrap all # set up dev environment on your computer
+algokit localnet start # launch an Algorand local network for testing
 algokit project run build # Compile the smart contract and get low-level TEAL code.
-algokit project deploy localnet
+algokit project deploy localnet # Run the `smart_contracts/asa_vault/deploy_config.py` file to deploy and test the smart contract.
 ```
 it will fail and show this error:
 
@@ -98,10 +100,10 @@ Now you are ready to fix the bug!
 ## Checkpoint 3: 🐞 Fix the bug 🧐
 
 1. Open Docker Desktop and launch Algorand localnet by running `algokit localnet start` in your terminal [For more info click me!](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/localnet.md#creating--starting-the-localnet).
-3. Go to `smart_contracts/personal_vault/contract.py` and to see the source code of the personal vault smart contract.
-4. Try building the contract with `algokit project run build`. It will fail.
+3. Go to `smart_contracts/asa_vault/contract.py` and to see the source code of the personal vault smart contract.
+4. Compile the contract with `algokit project run build` and then try running the test script with `algokit project deploy localnet`. It will fail.
 5. Read the error, figure out what is wrong and fix the bug!
-6. After fixing the bug, build and run the deploy script with the below command:
+6. After fixing the bug, build and run the deploy script again with the below command:
 ```bash
 algokit project run build
 algokit project deploy localnet
@@ -113,9 +115,10 @@ If you see something like this in the console, you successfully fixed the bug! �
 
 **😰 Are you struggling?**
 
-- [Algorand Smart Contract Documentation](https://developer.algorand.org/docs/get-details/ethereum_to_algorand/?from_query=ethereunm#accounts-and-smart-contracts)
-- [Algorand Python Documentation](https://algorandfoundation.github.io/puya/api-algopy.html#algopy.Global:~:text=current_application_address%3A%20Final%5B,executing.%20Application%20mode%20only.)
-- [AlgoKit CLI Documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md)
+- [Inner Transaction Documentation](https://developer.algorand.org/docs/get-details/dapps/smart-contracts/apps/innertx/?from_query=inner%20t#template-modal-overlay)
+- [Algorand Python Documentation](https://algorandfoundation.github.io/puya/api-algopy.itxn.html#algopy.itxn.AssetTransfer)
+- [How to opt-in to an asset with assetTransfer txn](https://developer.algorand.org/docs/get-details/transactions/transactions/?from_query=zero%20asset%20transfer#asset-transfer-transaction:~:text=A%20zero%20amount%20transferred%20to%20self%20allocates%20that%20asset%20in%20the%20account%27s%20Asset%20map.)
+  
 
 ## Checkpoint 4: 💯 Submit your answer
 

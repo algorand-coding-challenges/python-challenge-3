@@ -46,7 +46,7 @@ Now you have 2 ways of opening your AlgoKit project.
 ### With VSCode Workspaces
 
 1. Open the cloned repository with the code editor of your choosing.
-2. Open workspace mode by clicking `open workspace` inside of `python-challenge-1.code-workspace` file at the root level.
+2. Open workspace mode by clicking `open workspace` inside of `python-challenge-3.code-workspace` file at the root level.
 3. Go inside of the `challenge` folder.
 4. To setup your dev environment using AlgoKit, run the below command:
 ```bash

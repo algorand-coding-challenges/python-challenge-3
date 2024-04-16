@@ -1,4 +1,15 @@
-from algopy import ARC4Contract, arc4, UInt64, Asset, gtxn, itxn, Txn, Global,subroutine
+from algopy import (
+    ARC4Contract,
+    arc4,
+    UInt64,
+    Asset,
+    gtxn,
+    itxn,
+    Txn,
+    Global,
+    subroutine,
+)
+
 
 class AsaVault(ARC4Contract):
     asset_id: UInt64
@@ -21,9 +32,17 @@ class AsaVault(ARC4Contract):
 
         assert mbr_pay.receiver == Global.current_application_address
         assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance
-        
+
+        itxn.AssetTransfer(
+            xfer_asset=Asset(self.asset_id),
+            asset_receiver=Global.current_application_address,
+            asset_amount=UInt64(0),
+            sender=Global.current_application_address,
+            fee=UInt64(0),
+        ).submit()
+
     @arc4.abimethod
-    def deposit_asa(self, deposit_txn: gtxn.AssetTransferTransaction)-> None: 
+    def deposit_asa(self, deposit_txn: gtxn.AssetTransferTransaction) -> None:
         self.authorize_creator()
         assert deposit_txn.asset_receiver == Global.current_application_address
         assert deposit_txn.asset_amount > 0
@@ -47,4 +66,3 @@ class AsaVault(ARC4Contract):
     @arc4.abimethod(readonly=True)
     def get_asa_balance(self) -> UInt64:
         return self.asa_balance
-        

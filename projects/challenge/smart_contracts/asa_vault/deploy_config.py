@@ -63,6 +63,7 @@ def deploy(
     sp.fee = 2000
     sp.flat_fee = True
 
+    print(f"Attempting to opt into asset: {created_asset}")
     app_client.opt_in_to_asset(mbr_pay=TransactionWithSigner(mbr_pay, deployer.signer), transaction_parameters= algokit_utils.TransactionParameters(
         foreign_assets=[created_asset],
         suggested_params=sp
@@ -77,6 +78,7 @@ def deploy(
         index=created_asset,
     )
 
+    print(f"Attempting to deposit asset: {created_asset}")
     app_client.deposit_asa(deposit_txn=TransactionWithSigner(deposit_txn, deployer.signer))
 
     # Check the balance of the vault
@@ -99,4 +101,3 @@ def deploy(
 
     response = app_client.get_asa_balance()
     print(f"The Vault holds {response.return_value} Super RARE Oranges")
-

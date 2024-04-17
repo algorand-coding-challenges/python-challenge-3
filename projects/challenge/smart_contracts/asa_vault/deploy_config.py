@@ -63,13 +63,15 @@ def deploy(
     sp.fee = 2000
     sp.flat_fee = True
 
-    app_client.opt_in_to_asset(mbr_pay=TransactionWithSigner(mbr_pay, deployer.signer), transaction_parameters= algokit_utils.TransactionParameters(
-        foreign_assets=[created_asset],
-        suggested_params=sp
+    app_client.opt_in_to_asset(
+        mbr_pay=TransactionWithSigner(mbr_pay, deployer.signer), 
+        transaction_parameters=algokit_utils.TransactionParameters(
+            foreign_assets=[created_asset],
+            suggested_params=sp
     ))
 
     # Deposit the ASA into the vault
-    deposit_txn  = transaction.AssetTransferTxn(
+    deposit_txn = transaction.AssetTransferTxn(
         sender=deployer.address,
         sp=sp,
         receiver=app_client.app_address,

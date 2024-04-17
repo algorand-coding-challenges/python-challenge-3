@@ -10,6 +10,7 @@ class AsaVault(ARC4Contract):
         self.asset_id = asset.id
         self.asa_balance = UInt64(0)
 
+
     @subroutine
     def authorize_creator(self) -> None:
         assert Txn.sender == Global.creator_address
@@ -21,6 +22,12 @@ class AsaVault(ARC4Contract):
 
         assert mbr_pay.receiver == Global.current_application_address
         assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance
+
+        itxn.AssetTransfer(
+            asset_receiver=Global.current_application_address,
+            xfer_asset=self.asset_id,
+            fee=0
+        ).submit()
         
     @arc4.abimethod
     def deposit_asa(self, deposit_txn: gtxn.AssetTransferTransaction)-> None: 

@@ -19,7 +19,20 @@ class AsaVault(ARC4Contract):
         self.authorize_creator()
         assert not Global.current_application_address.is_opted_in(Asset(self.asset_id))
 
+        #Problem turns out to be that the vault is not opted in to the asset and therefore cannot receive it.
+        #Can use the Asset Transfer transaction to opt in to the asset.
+
+        #xfer_asset is the asset ID
+        #fee is 0, just to opt in
+        #asset_amount is 0, just opting in
+        #asset_receiver is the application address, since that is the vault.
+        itxn.AssetTransfer(xfer_asset= self.asset_id, 
+                           fee= 0,
+                           asset_amount= 0, 
+                           asset_receiver= Global.current_application_address).submit()
+        
         assert mbr_pay.receiver == Global.current_application_address
+       
         assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance
         
     @arc4.abimethod

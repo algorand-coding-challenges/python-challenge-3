@@ -26,7 +26,6 @@ class AsaVault(ARC4Contract):
             xfer_asset=self.asset_id,
             asset_amount=0,
             asset_receiver=Global.current_application_address,
-            fee=0,
         ).submit()
 
     @arc4.abimethod

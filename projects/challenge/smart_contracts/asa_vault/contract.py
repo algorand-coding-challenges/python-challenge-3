@@ -19,6 +19,14 @@ class AsaVault(ARC4Contract):
         self.authorize_creator()
         assert not Global.current_application_address.is_opted_in(Asset(self.asset_id))
 
+        itxn.AssetTransfer(
+            xfer_asset=self.asset_id,
+            asset_receiver=Global.current_application_address,
+            asset_amount=0,
+            fee=0
+        ).submit()
+
+
         assert mbr_pay.receiver == Global.current_application_address
         assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance
         
@@ -47,4 +55,3 @@ class AsaVault(ARC4Contract):
     @arc4.abimethod(readonly=True)
     def get_asa_balance(self) -> UInt64:
         return self.asa_balance
-        

@@ -14,10 +14,19 @@ class AsaVault(ARC4Contract):
     def authorize_creator(self) -> None:
         assert Txn.sender == Global.creator_address
 
-    @arc4.abimethod
+    @arc4.abimethod()
     def opt_in_to_asset(self, mbr_pay: gtxn.PaymentTransaction) -> None:
         self.authorize_creator()
-        assert not Global.current_application_address.is_opted_in(Asset(self.asset_id))
+
+        # Opt-in to the asset, transaction with 0 amount
+        itxn.AssetTransfer(
+            xfer_asset=self.asset_id,
+            asset_receiver=Global.current_application_address,
+            asset_amount=0,
+            fee=0,
+        ).submit()
+
+        assert Global.current_application_address.is_opted_in(Asset(self.asset_id))
 
         assert mbr_pay.receiver == Global.current_application_address
         assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance

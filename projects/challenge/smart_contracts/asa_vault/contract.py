@@ -18,7 +18,7 @@ class AsaVault(ARC4Contract):
     def opt_in_to_asset(self, mbr_pay: gtxn.PaymentTransaction) -> None:
         self.authorize_creator()
 
-        # Opt-in to the asset, transaction wiht 0 amount
+        # Opt-in to the asset, transaction with 0 amount
         itxn.AssetTransfer(
             xfer_asset=self.asset_id,
             asset_receiver=Global.current_application_address,

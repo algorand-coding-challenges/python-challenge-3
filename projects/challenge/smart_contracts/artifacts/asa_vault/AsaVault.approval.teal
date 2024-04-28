@@ -1,7 +1,7 @@
 #pragma version 10
 
 smart_contracts.asa_vault.contract.AsaVault.approval_program:
-    // smart_contracts/asa_vault/contract.py:3
+    // smart_contracts/asa_vault/contract.py:4
     // class AsaVault(ARC4Contract):
     method "create_application(asset)void"
     method "opt_in_to_asset(pay)void"
@@ -13,7 +13,7 @@ smart_contracts.asa_vault.contract.AsaVault.approval_program:
     err // reject transaction
 
 main_create_application_route@1:
-    // smart_contracts/asa_vault/contract.py:7-8
+    // smart_contracts/asa_vault/contract.py:8-9
     // # create the app and configure what ASA this vault will hold
     // @arc4.abimethod(allow_actions=["NoOp"], create="require")
     txn OnCompletion
@@ -22,12 +22,12 @@ main_create_application_route@1:
     txn ApplicationID
     !
     assert // is creating
-    // smart_contracts/asa_vault/contract.py:3
+    // smart_contracts/asa_vault/contract.py:4
     // class AsaVault(ARC4Contract):
     txna ApplicationArgs 1
     btoi
     txnas Assets
-    // smart_contracts/asa_vault/contract.py:7-8
+    // smart_contracts/asa_vault/contract.py:8-9
     // # create the app and configure what ASA this vault will hold
     // @arc4.abimethod(allow_actions=["NoOp"], create="require")
     callsub create_application
@@ -35,14 +35,14 @@ main_create_application_route@1:
     return
 
 main_opt_in_to_asset_route@2:
-    // smart_contracts/asa_vault/contract.py:17
+    // smart_contracts/asa_vault/contract.py:18
     // @arc4.abimethod
     txn OnCompletion
     !
     assert // OnCompletion is NoOp
     txn ApplicationID
     assert // is not creating
-    // smart_contracts/asa_vault/contract.py:3
+    // smart_contracts/asa_vault/contract.py:4
     // class AsaVault(ARC4Contract):
     txn GroupIndex
     int 1
@@ -52,21 +52,21 @@ main_opt_in_to_asset_route@2:
     int pay
     ==
     assert // transaction type is pay
-    // smart_contracts/asa_vault/contract.py:17
+    // smart_contracts/asa_vault/contract.py:18
     // @arc4.abimethod
     callsub opt_in_to_asset
     int 1
     return
 
 main_deposit_asa_route@3:
-    // smart_contracts/asa_vault/contract.py:25
+    // smart_contracts/asa_vault/contract.py:31
     // @arc4.abimethod
     txn OnCompletion
     !
     assert // OnCompletion is NoOp
     txn ApplicationID
     assert // is not creating
-    // smart_contracts/asa_vault/contract.py:3
+    // smart_contracts/asa_vault/contract.py:4
     // class AsaVault(ARC4Contract):
     txn GroupIndex
     int 1
@@ -76,33 +76,33 @@ main_deposit_asa_route@3:
     int axfer
     ==
     assert // transaction type is axfer
-    // smart_contracts/asa_vault/contract.py:25
+    // smart_contracts/asa_vault/contract.py:31
     // @arc4.abimethod
     callsub deposit_asa
     int 1
     return
 
 main_withdraw_asa_route@4:
-    // smart_contracts/asa_vault/contract.py:33
+    // smart_contracts/asa_vault/contract.py:39
     // @arc4.abimethod
     txn OnCompletion
     !
     assert // OnCompletion is NoOp
     txn ApplicationID
     assert // is not creating
-    // smart_contracts/asa_vault/contract.py:3
+    // smart_contracts/asa_vault/contract.py:4
     // class AsaVault(ARC4Contract):
     txna ApplicationArgs 1
     btoi
     txnas Assets
-    // smart_contracts/asa_vault/contract.py:33
+    // smart_contracts/asa_vault/contract.py:39
     // @arc4.abimethod
     callsub withdraw_asa
     int 1
     return
 
 main_get_asa_balance_route@5:
-    // smart_contracts/asa_vault/contract.py:47
+    // smart_contracts/asa_vault/contract.py:53
     // @arc4.abimethod(readonly=True)
     txn OnCompletion
     !
@@ -121,17 +121,17 @@ main_get_asa_balance_route@5:
 
 // smart_contracts.asa_vault.contract.AsaVault.create_application(asset: uint64) -> void:
 create_application:
-    // smart_contracts/asa_vault/contract.py:7-9
+    // smart_contracts/asa_vault/contract.py:8-10
     // # create the app and configure what ASA this vault will hold
     // @arc4.abimethod(allow_actions=["NoOp"], create="require")
     // def create_application(self, asset: Asset) -> None:
     proto 1 0
-    // smart_contracts/asa_vault/contract.py:10
+    // smart_contracts/asa_vault/contract.py:11
     // self.asset_id = asset.id
     byte "asset_id"
     frame_dig -1
     app_global_put
-    // smart_contracts/asa_vault/contract.py:11
+    // smart_contracts/asa_vault/contract.py:12
     // self.asa_balance = UInt64(0)
     byte "asa_balance"
     int 0
@@ -141,14 +141,14 @@ create_application:
 
 // smart_contracts.asa_vault.contract.AsaVault.opt_in_to_asset(mbr_pay: uint64) -> void:
 opt_in_to_asset:
-    // smart_contracts/asa_vault/contract.py:17-18
+    // smart_contracts/asa_vault/contract.py:18-19
     // @arc4.abimethod
     // def opt_in_to_asset(self, mbr_pay: gtxn.PaymentTransaction) -> None:
     proto 1 0
-    // smart_contracts/asa_vault/contract.py:19
+    // smart_contracts/asa_vault/contract.py:20
     // self.authorize_creator()
     callsub authorize_creator
-    // smart_contracts/asa_vault/contract.py:20
+    // smart_contracts/asa_vault/contract.py:21
     // assert not Global.current_application_address.is_opted_in(Asset(self.asset_id))
     global CurrentApplicationAddress
     int 0
@@ -159,14 +159,47 @@ opt_in_to_asset:
     bury 1
     !
     assert
+    // smart_contracts/asa_vault/contract.py:22-26
+    // itxn.AssetTransfer(
+    //     xfer_asset=self.asset_id,
+    //     asset_receiver=Global.current_application_address,
+    //     asset_amount=0,
+    // ).submit()
+    itxn_begin
+    // smart_contracts/asa_vault/contract.py:23
+    // xfer_asset=self.asset_id,
+    int 0
+    byte "asset_id"
+    app_global_get_ex
+    assert // check asset_id exists
+    // smart_contracts/asa_vault/contract.py:24
+    // asset_receiver=Global.current_application_address,
+    global CurrentApplicationAddress
+    // smart_contracts/asa_vault/contract.py:25
+    // asset_amount=0,
+    int 0
+    itxn_field AssetAmount
+    itxn_field AssetReceiver
+    itxn_field XferAsset
     // smart_contracts/asa_vault/contract.py:22
+    // itxn.AssetTransfer(
+    int axfer
+    itxn_field TypeEnum
+    // smart_contracts/asa_vault/contract.py:22-26
+    // itxn.AssetTransfer(
+    //     xfer_asset=self.asset_id,
+    //     asset_receiver=Global.current_application_address,
+    //     asset_amount=0,
+    // ).submit()
+    itxn_submit
+    // smart_contracts/asa_vault/contract.py:28
     // assert mbr_pay.receiver == Global.current_application_address
     frame_dig -1
     gtxns Receiver
     global CurrentApplicationAddress
     ==
     assert
-    // smart_contracts/asa_vault/contract.py:23
+    // smart_contracts/asa_vault/contract.py:29
     // assert mbr_pay.amount == Global.min_balance + Global.asset_opt_in_min_balance
     frame_dig -1
     gtxns Amount
@@ -180,11 +213,11 @@ opt_in_to_asset:
 
 // smart_contracts.asa_vault.contract.AsaVault.authorize_creator() -> void:
 authorize_creator:
-    // smart_contracts/asa_vault/contract.py:13-14
+    // smart_contracts/asa_vault/contract.py:14-15
     // @subroutine
     // def authorize_creator(self) -> None:
     proto 0 0
-    // smart_contracts/asa_vault/contract.py:15
+    // smart_contracts/asa_vault/contract.py:16
     // assert Txn.sender == Global.creator_address
     txn Sender
     global CreatorAddress
@@ -195,27 +228,27 @@ authorize_creator:
 
 // smart_contracts.asa_vault.contract.AsaVault.deposit_asa(deposit_txn: uint64) -> void:
 deposit_asa:
-    // smart_contracts/asa_vault/contract.py:25-26
+    // smart_contracts/asa_vault/contract.py:31-32
     // @arc4.abimethod
     // def deposit_asa(self, deposit_txn: gtxn.AssetTransferTransaction)-> None:
     proto 1 0
-    // smart_contracts/asa_vault/contract.py:27
+    // smart_contracts/asa_vault/contract.py:33
     // self.authorize_creator()
     callsub authorize_creator
-    // smart_contracts/asa_vault/contract.py:28
+    // smart_contracts/asa_vault/contract.py:34
     // assert deposit_txn.asset_receiver == Global.current_application_address
     frame_dig -1
     gtxns AssetReceiver
     global CurrentApplicationAddress
     ==
     assert
-    // smart_contracts/asa_vault/contract.py:29
+    // smart_contracts/asa_vault/contract.py:35
     // assert deposit_txn.asset_amount > 0
     frame_dig -1
     gtxns AssetAmount
     dup
     assert
-    // smart_contracts/asa_vault/contract.py:31
+    // smart_contracts/asa_vault/contract.py:37
     // self.asa_balance += deposit_txn.asset_amount
     int 0
     byte "asa_balance"
@@ -230,14 +263,14 @@ deposit_asa:
 
 // smart_contracts.asa_vault.contract.AsaVault.withdraw_asa(asset: uint64) -> void:
 withdraw_asa:
-    // smart_contracts/asa_vault/contract.py:33-34
+    // smart_contracts/asa_vault/contract.py:39-40
     // @arc4.abimethod
     // def withdraw_asa(self, asset: Asset) -> None:
     proto 1 0
-    // smart_contracts/asa_vault/contract.py:35
+    // smart_contracts/asa_vault/contract.py:41
     // self.authorize_creator()
     callsub authorize_creator
-    // smart_contracts/asa_vault/contract.py:37-43
+    // smart_contracts/asa_vault/contract.py:43-49
     // itxn.AssetTransfer(
     //     xfer_asset=self.asset_id,
     //     asset_receiver=Global.creator_address,
@@ -246,34 +279,34 @@ withdraw_asa:
     //     fee=0,
     // ).submit()
     itxn_begin
-    // smart_contracts/asa_vault/contract.py:38
+    // smart_contracts/asa_vault/contract.py:44
     // xfer_asset=self.asset_id,
     int 0
     byte "asset_id"
     app_global_get_ex
     assert // check asset_id exists
-    // smart_contracts/asa_vault/contract.py:39
+    // smart_contracts/asa_vault/contract.py:45
     // asset_receiver=Global.creator_address,
     global CreatorAddress
-    // smart_contracts/asa_vault/contract.py:41
+    // smart_contracts/asa_vault/contract.py:47
     // asset_close_to=Global.creator_address,
     dup
-    // smart_contracts/asa_vault/contract.py:42
+    // smart_contracts/asa_vault/contract.py:48
     // fee=0,
     int 0
     itxn_field Fee
     itxn_field AssetCloseTo
-    // smart_contracts/asa_vault/contract.py:40
+    // smart_contracts/asa_vault/contract.py:46
     // asset_amount=0,
     int 0
     itxn_field AssetAmount
     itxn_field AssetReceiver
     itxn_field XferAsset
-    // smart_contracts/asa_vault/contract.py:37
+    // smart_contracts/asa_vault/contract.py:43
     // itxn.AssetTransfer(
     int axfer
     itxn_field TypeEnum
-    // smart_contracts/asa_vault/contract.py:37-43
+    // smart_contracts/asa_vault/contract.py:43-49
     // itxn.AssetTransfer(
     //     xfer_asset=self.asset_id,
     //     asset_receiver=Global.creator_address,
@@ -282,7 +315,7 @@ withdraw_asa:
     //     fee=0,
     // ).submit()
     itxn_submit
-    // smart_contracts/asa_vault/contract.py:45
+    // smart_contracts/asa_vault/contract.py:51
     // self.asa_balance = UInt64(0)
     byte "asa_balance"
     int 0
@@ -292,11 +325,11 @@ withdraw_asa:
 
 // smart_contracts.asa_vault.contract.AsaVault.get_asa_balance() -> uint64:
 get_asa_balance:
-    // smart_contracts/asa_vault/contract.py:47-48
+    // smart_contracts/asa_vault/contract.py:53-54
     // @arc4.abimethod(readonly=True)
     // def get_asa_balance(self) -> UInt64:
     proto 0 1
-    // smart_contracts/asa_vault/contract.py:49
+    // smart_contracts/asa_vault/contract.py:55
     // return self.asa_balance
     int 0
     byte "asa_balance"
